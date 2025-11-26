@@ -494,6 +494,9 @@ export class Xterm {
             try {
                 this.terminal.loadAddon(this.canvasAddon);
                 console.log('[ttyd] canvas renderer loaded');
+                console.log('[ttyd] custom:ttydReady event dispatched');
+                const customReady = new CustomEvent('custom:ttydReady');
+                window.dispatchEvent(customReady);
             } catch (e) {
                 console.log('[ttyd] canvas renderer could not be loaded, falling back to dom renderer', e);
                 disposeCanvasRenderer();
@@ -509,13 +512,14 @@ export class Xterm {
                 });
                 terminal.loadAddon(this.webglAddon);
                 console.log('[ttyd] WebGL renderer loaded');
+                console.log('[ttyd] custom:ttydReady event dispatched');
+                const customReady = new CustomEvent('custom:ttydReady');
+                window.dispatchEvent(customReady);
             } catch (e) {
                 console.log('[ttyd] WebGL renderer could not be loaded, falling back to canvas renderer', e);
                 disposeWebglRenderer();
                 enableCanvasRenderer();
             }
-            const customReady = new CustomEvent('custom:ttydReady');
-            window.dispatchEvent(customReady);
         };
 
         switch (value) {
@@ -529,6 +533,7 @@ export class Xterm {
                 disposeWebglRenderer();
                 disposeCanvasRenderer();
                 console.log('[ttyd] dom renderer loaded');
+                console.log('[ttyd] custom:ttydReady event dispatched');
                 break;
             default:
                 break;
