@@ -106,7 +106,7 @@ int callback_http(struct lws *wsi, enum lws_callback_reasons reason, void *user,
       access_log(wsi, (const char *)in);
       snprintf(pss->path, sizeof(pss->path), "%s", (const char *)in);
       // only authenticate for / and /token
-      if (strcmp(pss->path, endpoints.index) == 0 || strcmp(pss->path, endpoints.token) == 0) {
+      if (strcmp(pss->path, endpoints.ws) == 0 || strcmp(pss->path, endpoints.index) == 0 || strcmp(pss->path, endpoints.token) == 0) {
         switch (check_auth(wsi, pss)) {
           case AUTH_OK:
             break;
